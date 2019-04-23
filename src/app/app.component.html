@@ -1,0 +1,45 @@
+<div class="app-container">
+  <div class="main-container">
+    <div class="header">Header</div>
+    <div class="content">
+      <form [formGroup]="testForm" #form="ngForm" (ngSubmit)="onCallApi(testForm.value)" class="test-form">
+        <div class="field" [ngClass]="{'is-validate': f.textField.invalid && submitted}">
+          <label for="textField">Text</label>
+          <input name="textField" type="text" value="" formControlName="textField" required>
+
+          <span *ngIf="f['textField'].errors && submitted" id="email-valid" class="validate-message">
+            <span *ngIf="f['textField'].errors.required">Required.</span>
+          </span>
+        </div>
+
+        <div class="field" [ngClass]="{'is-validate': f.numberField.invalid && submitted}">
+          <label for="numberField">Number</label>
+          <input name="numberField"  type="number" value="" formControlName="numberField" required appTwoDigitDecimaNumber>
+
+          <span *ngIf="f['numberField'].errors && submitted" class="validate-message">
+            <span *ngIf="f['numberField'].errors.required">Required.</span>
+          </span>
+        </div>
+      </form>
+      <div class="scroll-container">
+        <table class="custom-table" *ngIf="lists.length>0">
+          <tr>
+            <th>Timestamp</th>
+            <th>Text</th>
+            <th>Number</th>
+          </tr>
+          <tr *ngFor="let item of lists">
+            <td>{{item.timestamp}}</td>
+            <td>{{item.textField}}</td>
+            <td>{{item.numberField}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="footer">
+      Footer
+      <button class="submit-btn" (click)="onCallApi()">Submit</button>
+    </div>
+  </div>
+</div>
+
